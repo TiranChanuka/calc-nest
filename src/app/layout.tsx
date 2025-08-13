@@ -8,7 +8,9 @@ import {
   generateOrganizationSchema,
   generateWebsiteSchema,
 } from "@/lib/seo-utils";
+import { getFaviconConfig } from "@/utils/favicon";
 import Script from "next/script";
+import { GoogleAnalytics } from "@next/third-parties/google";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -17,43 +19,27 @@ const inter = Inter({
 });
 
 // Generate comprehensive SEO metadata
-export const metadata: Metadata = generateSEOMetadata({
-  title:
-    "Calcnest - Free Health & Wellness Calculators | BMI, Calorie, Sleep Tools",
-  description:
-    "Comprehensive collection of free, accurate health calculators including BMI, calorie, sleep cycle, fitness, and women's health tools. Trusted by millions worldwide.",
-  keywords: [
-    "health calculator",
-    "BMI calculator",
-    "calorie calculator",
-    "sleep calculator",
-    "fitness calculator",
-    "pregnancy calculator",
-    "wellness tools",
-    "medical calculator",
-    "health assessment",
-  ],
-  type: "website",
-  icons: {
-    icon: [
-      {
-        url: process.env.NEXT_PUBLIC_FAVICON_ICO || "/favicon.ico",
-        sizes: "32x32",
-      },
-      {
-        url: process.env.NEXT_PUBLIC_FAVICON_SVG || "/favicon.svg",
-        type: "image/svg+xml",
-      },
+export const metadata: Metadata = {
+  ...generateSEOMetadata({
+    title:
+      "Calcnest - Free Health & Wellness Calculators | BMI, Calorie, Sleep Tools",
+    description:
+      "Comprehensive collection of free, accurate health calculators including BMI, calorie, sleep cycle, fitness, and women's health tools. Trusted by millions worldwide.",
+    keywords: [
+      "health calculator",
+      "BMI calculator",
+      "calorie calculator",
+      "sleep calculator",
+      "fitness calculator",
+      "pregnancy calculator",
+      "wellness tools",
+      "medical calculator",
+      "health assessment",
     ],
-    shortcut: process.env.NEXT_PUBLIC_FAVICON_ICO || "/favicon.ico",
-    apple: [
-      {
-        url: process.env.NEXT_PUBLIC_FAVICON_PNG || "/apple-touch-icon.png",
-        sizes: "180x180",
-      },
-    ],
-  },
-});
+    type: "website",
+  }),
+  icons: getFaviconConfig(),
+};
 
 // Viewport configuration for mobile optimization
 export const viewport: Viewport = {
@@ -103,6 +89,8 @@ export default function RootLayout({
         <link rel="dns-prefetch" href="//googletagmanager.com" />
       </head>
       <body className={`${inter.className} antialiased bg-gray-50 font-sans`}>
+        {/* Google Analytics */}
+        <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID ?? ""} />
         <div className="min-h-screen flex flex-col">
           <Navigation />
           <main className="flex-grow" role="main">
