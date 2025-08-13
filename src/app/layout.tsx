@@ -11,6 +11,7 @@ import {
 import { getFaviconConfig } from "@/utils/favicon";
 import Script from "next/script";
 import { GoogleAnalytics } from "@next/third-parties/google";
+import { Analytics } from "@vercel/analytics/next";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -90,11 +91,13 @@ export default function RootLayout({
       </head>
       <body className={`${inter.className} antialiased bg-gray-50 font-sans`}>
         {/* Google Analytics */}
-        <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID ?? ""} />
+
         <div className="min-h-screen flex flex-col">
           <Navigation />
           <main className="flex-grow" role="main">
             {children}
+            <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID ?? ""} />
+            <Analytics />
           </main>
           <Footer />
         </div>
