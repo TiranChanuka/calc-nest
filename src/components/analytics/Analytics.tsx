@@ -134,14 +134,16 @@ export default function Analytics({ children }: AnalyticsProps) {
   );
 }
 
+// Type for gtag function
+type GtagFunction = (
+  command: string,
+  targetId: string,
+  config?: Record<string, unknown>
+) => void;
+
 // Extend Window interface for TypeScript
 declare global {
   interface Window {
-    gtag: (
-      command: string,
-      targetId: string,
-      config?: Record<string, unknown>
-    ) => void;
-    dataLayer: Record<string, unknown>[];
+    gtag: GtagFunction;
   }
 }
