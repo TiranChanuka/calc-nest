@@ -34,6 +34,25 @@ export const metadata: Metadata = generateSEOMetadata({
     "health assessment",
   ],
   type: "website",
+  icons: {
+    icon: [
+      {
+        url: process.env.NEXT_PUBLIC_FAVICON_ICO || "/favicon.ico",
+        sizes: "32x32",
+      },
+      {
+        url: process.env.NEXT_PUBLIC_FAVICON_SVG || "/favicon.svg",
+        type: "image/svg+xml",
+      },
+    ],
+    shortcut: process.env.NEXT_PUBLIC_FAVICON_ICO || "/favicon.ico",
+    apple: [
+      {
+        url: process.env.NEXT_PUBLIC_FAVICON_PNG || "/apple-touch-icon.png",
+        sizes: "180x180",
+      },
+    ],
+  },
 });
 
 // Viewport configuration for mobile optimization

@@ -12,6 +12,11 @@ interface SEOParams {
   calculator?: keyof typeof SEO_CONFIG.calculatorSEO;
   noIndex?: boolean;
   canonical?: string;
+  icons?: {
+    icon?: string | Array<{ url: string; sizes?: string; type?: string }>;
+    shortcut?: string;
+    apple?: string | Array<{ url: string; sizes?: string }>;
+  };
 }
 
 /**
@@ -27,6 +32,7 @@ export function generateSEOMetadata({
   calculator,
   noIndex = false,
   canonical,
+  icons,
 }: SEOParams = {}): Metadata {
   const appName = getAppName();
   const baseUrl = SEO_CONFIG.site.url;
@@ -59,6 +65,13 @@ export function generateSEOMetadata({
     authors: [{ name: SEO_CONFIG.site.author }],
     creator: SEO_CONFIG.site.author,
     publisher: SEO_CONFIG.site.publisher,
+
+    // Icons
+    icons: icons || {
+      icon: "/favicon.ico",
+      shortcut: "/favicon.ico",
+      apple: "/apple-touch-icon.png",
+    },
 
     // Robots and indexing
     robots: noIndex ? "noindex, nofollow" : SEO_CONFIG.technical.robots,
